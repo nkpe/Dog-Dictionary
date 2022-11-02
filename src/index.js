@@ -7,6 +7,8 @@ const main = document.getElementById('main');
 // Get Data from API
 async function getDogBreeds() {
 
+    let allDogs = {};
+
     let dogData = fetch('https://dog.ceo/api/breeds/list/all')
         .then(res => {
             let data = res.json();
@@ -19,21 +21,23 @@ async function getDogBreeds() {
     const dogBreeds = Object.getOwnPropertyNames(dogBreedsData.message);
     
     //using dog breeds, get breed image from second API
-    let getDogPictureData = (breed) => {
-        fetch(`https://dog.ceo/api/breed/${breed}/images`)
-            .then(res => {
-                let imageData = res.json();
-                return imageData
-            });
 
-    for (let breed of dogBreeds) {
-        let dogPicture = getDogPictureData(breed);
-        console.log("dogPicture", dogPicture);
+    for (let i=0; i< dogBreeds.length; i++) {
+        let breed = dogBreeds[i];
+
+        let getDogPictureData = fetch(`https://dog.ceo/api/breed/${breed}/images`)
+        .then(res => {
+            let imageData = res.json();
+            return imageData
+        });
+
+        let dogPicture = await getDogPictureData;
+        allDogs[breed] = dogPicture.message[0];
     };
 
-    // console.log(dogData);
+    console.log(allDogs);
 
-}
+    // console.log(dogData);
 };
 
 getDogBreeds();
