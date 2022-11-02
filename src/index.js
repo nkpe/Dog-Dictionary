@@ -5,10 +5,12 @@ console.log("index.js working");
 const main = document.getElementById('main');
 
 // Get Data from API
-async function getDogBreeds() {
+async function getDogData () {
 
+    //dog breeds and dog image sources to be stored in allDogs object
     let allDogs = {};
 
+    //dogData gets dog breeds from first API
     let dogData = fetch('https://dog.ceo/api/breeds/list/all')
         .then(res => {
             let data = res.json();
@@ -18,10 +20,11 @@ async function getDogBreeds() {
     // await dog breeds from first API
     const dogBreedsData = await dogData;
     console.log(dogBreedsData);
+
+    //all dog breeds added into an array
     const dogBreeds = Object.getOwnPropertyNames(dogBreedsData.message);
     
-    //using dog breeds, get breed image from second API
-
+    //using dog breeds array, get image by breed from second API
     for (let i=0; i< dogBreeds.length; i++) {
         let breed = dogBreeds[i];
 
@@ -32,12 +35,10 @@ async function getDogBreeds() {
         });
 
         let dogPicture = await getDogPictureData;
+
+        // dog breeds and dog image sources added to object as key-value pairs
         allDogs[breed] = dogPicture.message[0];
     };
-
-    console.log(allDogs);
-
-    // console.log(dogData);
 };
 
-getDogBreeds();
+getDogData();
