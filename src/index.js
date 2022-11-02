@@ -4,32 +4,36 @@ console.log("index.js working");
 
 const main = document.getElementById('main');
 
-let getDogBreeds = () => {
-    // empty object to store all dog breeds and matching image
-    let allDogs = {};
+// Get Data from API
+async function getDogBreeds() {
 
-    // get dog breeds from first API
-    fetch("https://dog.ceo/api/breeds/list/all")
-        .then(response => {
-            const dogBreedsData = response.json();
-            return dogBreedsData
-        })
+    let dogData = fetch('https://dog.ceo/api/breeds/list/all')
+        .then(res => {
+            let data = res.json();
+            return data;
+        });
 
-        //using dog breeds, get relevant image from second API
-        .then(dogBreedsData => {    
-            const dogBreeds = Object.getOwnPropertyNames(dogBreedsData.message);
-            for (let breed of dogBreeds) {
-                fetch(`https://dog.ceo/api/breed/${breed}/images`)
-                    .then(res => {
-                        let breedPictures = res.json();
-                        return breedPictures
-                    }).then(breedPictures => {
-                        let breedPicture = breedPictures.message[0];
-                        return allDogs[breed] = breedPicture;
-                    });
-            }
-        console.log("allDogs object" , allDogs) 
-        })
+    // await dog breeds from first API
+    const dogBreedsData = await dogData;
+    console.log(dogBreedsData);
+    const dogBreeds = Object.getOwnPropertyNames(dogBreedsData.message);
+    
+    //using dog breeds, get breed image from second API
+    let getDogPictureData = (breed) => {
+        fetch(`https://dog.ceo/api/breed/${breed}/images`)
+            .then(res => {
+                let imageData = res.json();
+                return imageData
+            });
+
+    for (let breed of dogBreeds) {
+        let dogPicture = getDogPictureData(breed);
+        console.log("dogPicture", dogPicture);
+    };
+
+    // console.log(dogData);
+
+}
 };
 
 getDogBreeds();
