@@ -37,7 +37,7 @@ async function DogData () {
         let dogPicture = await getDogPictureData;
 
         // dog breeds and dog image sources added to object as key-value pairs
-        allDogs[breed] = dogPicture.message[0];
+        allDogs[breed] = dogPicture.message[1];
     };
     return allDogs;
 };
