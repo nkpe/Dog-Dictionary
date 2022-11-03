@@ -10,7 +10,7 @@ section.className = "dog-cards-section";
 main.prepend(section);
 
 // custom HTML Element to show dog information
-class DogCard extends HTMLElement { 
+class DogCard extends HTMLDivElement { 
     constructor(breed, imgSrc) {
         super();
         this.breed = breed;
@@ -43,11 +43,11 @@ class DogCard extends HTMLElement {
     }
 }
 
-customElements.define('dog-card', DogCard);
+customElements.define('dog-card', DogCard, {extends: 'div'});
 
 let dogCardInstance = () => {
    for (const breed in allDogData){
-    let dogCard = document.createElement('dog-card');
+    let dogCard = document.createElement('div', {is: 'dog-card'});
     dogCard.setAttribute('class', 'dog-card')
     dogCard.breed = breed;
     dogCard.imgSrc = allDogData[breed];
