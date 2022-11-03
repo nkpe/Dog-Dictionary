@@ -2,10 +2,10 @@
 
 console.log("index.js working");
 
-const main = document.getElementById('main');
+
 
 // Get Data from API
-async function getDogData () {
+async function DogData () {
 
     //dog breeds and dog image sources to be stored in allDogs object
     let allDogs = {};
@@ -39,6 +39,9 @@ async function getDogData () {
         // dog breeds and dog image sources added to object as key-value pairs
         allDogs[breed] = dogPicture.message[0];
     };
+    return allDogs;
 };
 
-getDogData();
+let allDogData = await DogData();
+
+export {allDogData};
