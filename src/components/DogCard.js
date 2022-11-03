@@ -1,8 +1,6 @@
 'use strict';
 
-import { allDogData } from "../index.js";
-
-const main = document.getElementById('main');
+import { allDogData, main } from "../index.js";
 
 //section tag created to hold all dog cards
 const section = document.createElement("section");
@@ -12,7 +10,7 @@ section.className = "dog-cards-section";
 main.prepend(section);
 
 // custom HTML Element to show dog information
-class DogCard extends HTMLElement {
+class DogCard extends HTMLElement { 
     constructor(breed, imgSrc) {
         super();
         this.breed = breed;

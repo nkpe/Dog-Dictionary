@@ -1,6 +1,14 @@
 'use strict';
 
-// Get Data from API
+const main = document.getElementById('main');
+
+window.addEventListener('load', () => {
+    let loading = document.createElement('p');
+    loading.innerText = 'Loading...';
+    loading.setAttribute('class', 'loading-text');
+    main.appendChild(loading);
+});
+
 async function DogData() {
 
     //dog breeds and dog image sources to be stored in allDogs object
@@ -28,7 +36,7 @@ async function DogData() {
             .then(response => {
                 let imageData = response.json();
                 return imageData
-            })
+            });
 
         let allBreedImagesResult = await getDogPictureData;
 
@@ -39,7 +47,7 @@ async function DogData() {
         if (allBreedImages[pictureNum] === undefined) {
             console.log(breed, " is undefined");
             continue
-        }
+        };
 
         allDogs[breed] = allBreedImages[pictureNum];
 
@@ -50,4 +58,4 @@ async function DogData() {
 
 let allDogData = await DogData();
 
-export { allDogData };
+export { allDogData , main };
