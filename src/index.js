@@ -5,8 +5,8 @@ const main = document.getElementById('main');
 window.addEventListener('load', () => {
     let loading = document.createElement('p');
     loading.innerText = 'Loading...';
-    loading.setAttribute('class', 'loading-text');
-    main.appendChild(loading);
+    loading.setAttribute('id', 'loading-text');
+    main.prepend(loading);
 });
 
 async function DogData() {
@@ -23,7 +23,6 @@ async function DogData() {
 
     // await dog breeds from first API
     const dogBreedsData = await dogData;
-    console.log(dogBreedsData);
 
     //all dog breeds added into an array
     const dogBreeds = Object.getOwnPropertyNames(dogBreedsData.message);
@@ -45,7 +44,6 @@ async function DogData() {
 
         //not all breeds return an image, so below will filter these out
         if (allBreedImages[pictureNum] === undefined) {
-            console.log(breed, " is undefined");
             continue
         };
 

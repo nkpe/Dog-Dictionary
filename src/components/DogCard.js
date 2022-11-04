@@ -1,10 +1,10 @@
 'use strict';
 
-import { allDogData, main } from "../index.js";
+import { allDogData, main } from '../index.js';
 
 //section tag created to hold all dog cards
-const section = document.createElement("section");
-section.className = "dog-cards-section";
+const section = document.createElement('section');
+section.className = 'dog-cards-section';
 main.prepend(section);
 
 // custom HTML Element to show dog information
@@ -43,24 +43,40 @@ class DogCard extends HTMLElement {
 
 customElements.define('dog-card', DogCard);
 
-let dogCardInstance = (setNum) => {
-    //track number of dog cards displayed
-    let numDisplayed = 0;
 
-    //turn allDogData object into an array to loop through by index.
-    const allDogDataList = Object.entries(allDogData);
-    console.log(allDogDataList)
+//turn allDogData object into an array to loop through by index.
+const allDogDataList = Object.entries(allDogData);
 
-    for (let i = numDisplayed; i < setNum; i++) {
+let numDisplayed = 0;
+const setNum = 10;
+let clickTotal = 1;
+
+let dogCardInstance = () => {
+    for (let i = numDisplayed; i < (clickTotal * setNum); i++) {
+        console.log(numDisplayed, setNum);
         numDisplayed++;
-        console.log(i)
+
         //create and add dogCards to DOM
         let dogCard = document.createElement('dog-card');
-        dogCard.setAttribute('class', 'dog-card')
+        dogCard.setAttribute('class', 'dog-card');
         dogCard.breed = allDogDataList[numDisplayed][0];
         dogCard.imgSrc = allDogDataList[numDisplayed][1];
         section.appendChild(dogCard);
     };
-};
+};  
 
-dogCardInstance(10);
+let initialCardLoad = () => {
+    dogCardInstance();
+    const loadingInfo = document.getElementById('loading-text');
+    main.removeChild(loadingInfo);
+}
+
+initialCardLoad();
+
+const loadMoreButton = document.getElementById('button');
+
+loadMoreButton.addEventListener('click', () => {
+    //track number of dog cards displayed
+    clickTotal++;
+    dogCardInstance();
+});1    
