@@ -38,11 +38,10 @@ class DogCard extends HTMLElement {
         cardWrapper.appendChild(imgWrapper);
         imgWrapper.appendChild(dogImage);
         cardWrapper.appendChild(dogBreedName);
-    }
-}
+    };
+};
 
 customElements.define('dog-card', DogCard);
-
 
 //turn allDogData object into an array to loop through by index.
 const allDogDataList = Object.entries(allDogData);
@@ -51,7 +50,6 @@ const allDogDataList = Object.entries(allDogData);
 let numDisplayed = 0;
 let setNum = 10;
 
-
 const replaceLoadMoreButton = () => {
     //remove loadButton when
     if (numDisplayed === allDogDataList.length -1){
@@ -59,34 +57,27 @@ const replaceLoadMoreButton = () => {
         const allResultsText = document.createElement('p');
         allResultsText.innerText = "All results loaded";
         main.appendChild(allResultsText);
-    }
+    };
 };
 
 const dogCardInstance = (setNum) => {
-    console.log(allDogDataList.length);
     for (let i = numDisplayed; i < (setNum); i++) {
-        numDisplayed++;
         //create and add dogCards to DOM
         let dogCard = document.createElement('dog-card');
         dogCard.setAttribute('class', 'dog-card');
         dogCard.breed = allDogDataList[numDisplayed][0];
         dogCard.imgSrc = allDogDataList[numDisplayed][1];
+        numDisplayed++;
         section.appendChild(dogCard);
     };
-
     replaceLoadMoreButton();
-
-    // console.log(allDogDataList.length);
-    console.log(setNum);
-
-
 };
 
 const initialCardLoad = () => {
     dogCardInstance(setNum);
     const loadingInfo = document.getElementById('loading-text');
     main.removeChild(loadingInfo);
-}
+};
 
 initialCardLoad();
 
@@ -100,10 +91,6 @@ loadMoreButton.addEventListener('click', () => {
     //check for end of results
     if (setNum > allDogDataList.length - 1){
         setNum = allDogDataList.length - 1;
-    }
-
-    console.log("numDis", numDisplayed, "array", allDogDataList.length, "setNum", setNum);
-
-    //remove button when end of list is reached
+    };
     dogCardInstance(setNum);
 });

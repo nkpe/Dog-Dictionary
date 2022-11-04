@@ -10,7 +10,6 @@ window.addEventListener('load', () => {
 });
 
 async function DogData() {
-
     //dog breeds and dog image sources to be stored in allDogs object
     let allDogs = {};
 
@@ -42,14 +41,12 @@ async function DogData() {
         let pictureNum = 1;
         let allBreedImages = allBreedImagesResult.message;
 
-        //not all breeds return an image, so below will filter these out
+        //not all breeds return an image, so below filters these out
         if (allBreedImages[pictureNum] === undefined) {
             continue
         };
 
         allDogs[breed] = allBreedImages[pictureNum];
-
-        // getDogPicture(allBreedImagesResult, allDogs, breed);
     };
     return allDogs;
 };
