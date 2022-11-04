@@ -47,12 +47,12 @@ customElements.define('dog-card', DogCard);
 //turn allDogData object into an array to loop through by index.
 const allDogDataList = Object.entries(allDogData);
 
+ //track number of dog cards displayed
 let numDisplayed = 0;
-let clickTotal = 1;
+let setNum = 10;
 
 let dogCardInstance = (setNum) => {
-    for (let i = numDisplayed; i < (clickTotal * setNum); i++) {
-        console.log(numDisplayed, setNum);
+    for (let i = numDisplayed; i < (setNum); i++) {
         numDisplayed++;
 
         //create and add dogCards to DOM
@@ -65,7 +65,7 @@ let dogCardInstance = (setNum) => {
 };  
 
 let initialCardLoad = () => {
-    dogCardInstance(10);
+    dogCardInstance(setNum);
     const loadingInfo = document.getElementById('loading-text');
     main.removeChild(loadingInfo);
 }
@@ -75,10 +75,8 @@ initialCardLoad();
 const loadMoreButton = document.getElementById('button');
 
 loadMoreButton.addEventListener('click', () => {
-    //track number of dog cards displayed
-    clickTotal++;
-
     //onClick loads more than the initial amount
     const newSetNum = 15;
-    dogCardInstance(newSetNum);
-});1    
+    setNum = setNum + newSetNum;
+    dogCardInstance(setNum);
+});
