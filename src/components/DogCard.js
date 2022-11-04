@@ -1,16 +1,14 @@
 'use strict';
 
-import { allDogData, main } from "../index.js";
+import { allDogData, main } from '../index.js';
 
 //section tag created to hold all dog cards
-const section = document.createElement("section");
-section.className = "dog-cards-section";
-
-//shadow DOM initiated to manage dog cards
+const section = document.createElement('section');
+section.className = 'dog-cards-section';
 main.prepend(section);
 
 // custom HTML Element to show dog information
-class DogCard extends HTMLDivElement { 
+class DogCard extends HTMLElement {
     constructor(breed, imgSrc) {
         super();
         this.breed = breed;
@@ -43,16 +41,44 @@ class DogCard extends HTMLDivElement {
     }
 }
 
-customElements.define('dog-card', DogCard, {extends: 'div'});
+customElements.define('dog-card', DogCard);
 
-let dogCardInstance = () => {
-   for (const breed in allDogData){
-    let dogCard = document.createElement('div', {is: 'dog-card'});
-    dogCard.setAttribute('class', 'dog-card')
-    dogCard.breed = breed;
-    dogCard.imgSrc = allDogData[breed];
-    section.appendChild(dogCard);
-   }
-};
 
-dogCardInstance();
+//turn allDogData object into an array to loop through by index.
+const allDogDataList = Object.entries(allDogData);
+
+let numDisplayed = 0;
+let clickTotal = 1;
+
+let dogCardInstance = (setNum) => {
+    for (let i = numDisplayed; i < (clickTotal * setNum); i++) {
+        console.log(numDisplayed, setNum);
+        numDisplayed++;
+
+        //create and add dogCards to DOM
+        let dogCard = document.createElement('dog-card');
+        dogCard.setAttribute('class', 'dog-card');
+        dogCard.breed = allDogDataList[numDisplayed][0];
+        dogCard.imgSrc = allDogDataList[numDisplayed][1];
+        section.appendChild(dogCard);
+    };
+};  
+
+let initialCardLoad = () => {
+    dogCardInstance(10);
+    const loadingInfo = document.getElementById('loading-text');
+    main.removeChild(loadingInfo);
+}
+
+initialCardLoad();
+
+const loadMoreButton = document.getElementById('button');
+
+loadMoreButton.addEventListener('click', () => {
+    //track number of dog cards displayed
+    clickTotal++;
+
+    //onClick loads more than the initial amount
+    const newSetNum = 15;
+    dogCardInstance(newSetNum);
+});1    
