@@ -4,7 +4,7 @@ Dictionary of Dog breeds (data source: https://dog.ceo/dog-api/)
 * GitHub Pages - The website has been deployed to GitHub Pages and can be viewed [here](https://nkpe.github.io/Dog-Dictionary/)
 * Run Locally 
     1. Install node.js using ```npm install http-server -g``` in the command line
-    2. Inside the Dog-Dictionary folder, run ```run http-server -p 3000``` in the command line
+    2. Inside the Dog-Dictionary folder, run ```http-server -p 3000``` in the command line
     3. To view - in Chrome or Firefox go to `http://localhost:3000/` .
 ## Testing
 * Browser compatibility - DogCard web component does not render in Safari browser. Website works well in Chrome, Firefox and Edge
