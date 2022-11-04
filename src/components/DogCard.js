@@ -56,7 +56,9 @@ const replaceLoadMoreButton = () => {
     //remove loadButton when
     if (numDisplayed === allDogDataList.length -1){
         main.removeChild(loadMoreButton);
-        console.log('all results loaded');
+        const allResultsText = document.createElement('p');
+        allResultsText.innerText = "All results loaded";
+        main.appendChild(allResultsText);
     }
 };
 
