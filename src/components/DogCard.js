@@ -47,14 +47,25 @@ customElements.define('dog-card', DogCard);
 //turn allDogData object into an array to loop through by index.
 const allDogDataList = Object.entries(allDogData);
 
- //track number of dog cards displayed
+//track number of dog cards displayed
 let numDisplayed = 0;
 let setNum = 10;
 
-let dogCardInstance = (setNum) => {
+
+const replaceLoadMoreButton = () => {
+    //remove loadButton when
+    if (numDisplayed === allDogDataList.length -1){
+        main.removeChild(loadMoreButton);
+        const allResultsText = document.createElement('p');
+        allResultsText.innerText = "All results loaded";
+        main.appendChild(allResultsText);
+    }
+};
+
+const dogCardInstance = (setNum) => {
+    console.log(allDogDataList.length);
     for (let i = numDisplayed; i < (setNum); i++) {
         numDisplayed++;
-
         //create and add dogCards to DOM
         let dogCard = document.createElement('dog-card');
         dogCard.setAttribute('class', 'dog-card');
@@ -62,9 +73,16 @@ let dogCardInstance = (setNum) => {
         dogCard.imgSrc = allDogDataList[numDisplayed][1];
         section.appendChild(dogCard);
     };
-};  
 
-let initialCardLoad = () => {
+    replaceLoadMoreButton();
+
+    // console.log(allDogDataList.length);
+    console.log(setNum);
+
+
+};
+
+const initialCardLoad = () => {
     dogCardInstance(setNum);
     const loadingInfo = document.getElementById('loading-text');
     main.removeChild(loadingInfo);
@@ -78,5 +96,14 @@ loadMoreButton.addEventListener('click', () => {
     //onClick loads more than the initial amount
     const newSetNum = 15;
     setNum = setNum + newSetNum;
+    
+    //check for end of results
+    if (setNum > allDogDataList.length - 1){
+        setNum = allDogDataList.length - 1;
+    }
+
+    console.log("numDis", numDisplayed, "array", allDogDataList.length, "setNum", setNum);
+
+    //remove button when end of list is reached
     dogCardInstance(setNum);
 });
