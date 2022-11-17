@@ -30,6 +30,14 @@ class DogCard extends HTMLElement {
         dogImage.setAttribute('src', this.imgSrc);
         dogImage.setAttribute('alt', `image of ${this.breed}`);
 
+        if(dogImage.height < dogImage.width){
+            dogImage.style.minHeight = '100%';
+        } else if (dogImage.height > dogImage.width){
+            dogImage.style.minWidth = '100%';
+        };
+
+        console.dir(dogImage);
+
         //heading tag for breed name
         const dogBreedName = document.createElement('figcaption');
         dogBreedName.setAttribute('class', 'breed-name');
