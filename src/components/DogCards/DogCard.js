@@ -1,6 +1,6 @@
 'use strict';
 
-import { allDogData, main } from '../index.js';
+import { allDogData, main } from '../../index.js';
 
 //section tag created to hold all dog cards
 const section = document.createElement('section');
