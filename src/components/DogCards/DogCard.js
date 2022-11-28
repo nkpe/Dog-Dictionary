@@ -5,12 +5,17 @@ import { allDogDataList } from './DogData.js';
 import { CardsGroup } from './DogCardPage.js';
 
 const imgSizing = (dogImage) => {
-    if(dogImage.height <= dogImage.width){
+    if (dogImage.height <= dogImage.width) {
         dogImage.style.minHeight = '100%';
-    } else if (dogImage.height > dogImage.width){
+    } else if (dogImage.height > dogImage.width) {
         dogImage.style.minWidth = '100%';
     };
 }
+
+// const centreImgs = (dogImage) => {
+//     dogImage
+//     dogImage.style.transform = `translateX(-50%, -50%)`
+// }
 
 // custom HTML Element to show dog information
 class DogCard extends HTMLElement {
@@ -35,7 +40,8 @@ class DogCard extends HTMLElement {
         dogImage.setAttribute('src', this.imgSrc);
         dogImage.setAttribute('alt', `image of ${this.breed}`);
 
-       imgSizing(dogImage);
+        imgSizing(dogImage);
+        // centreImgs(dogImage);
 
         //heading tag for breed name
         const dogBreedName = document.createElement('figcaption');
@@ -51,7 +57,6 @@ class DogCard extends HTMLElement {
 customElements.define('dog-card', DogCard);
 
 const dogCardInstance = (setNum, section) => {
-    console.log("dogCardInstance working");
     for (let i = CardsGroup.numDisplayed; i < (setNum); i++) {
         //create and add dogCards to DOM
         let dogCard = document.createElement('dog-card');
@@ -64,7 +69,6 @@ const dogCardInstance = (setNum, section) => {
 };
 
 const initialCardLoad = (section) => {
-    console.log("initalCardLoad working");
     dogCardInstance(CardsGroup.setNum, section);
     const loadingInfo = document.getElementById('loading-text');
     main.removeChild(loadingInfo);
